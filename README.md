@@ -23,6 +23,7 @@ Based on geolocation, the user will be able to select the range of distance for 
 - **Logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account.
 - **User profile page** - As a user I want to see my profile page once I sign up/log in.
 - **Search for a photographer** - As a user I want to search photographers around my area based on their location and skills.
+- **Photographer portfolio** - As a photographer user I want to be able to create a portfolio to showcase my work to potential clients.
 
 
 ## Backlog
