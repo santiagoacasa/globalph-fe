@@ -47,6 +47,7 @@ Based on geolocation, the user will be able to select the range of distance for 
 - portfolio: Array Strings
 - skills: Array String
 - verified: Boolean
+- public: Boolean
 - inbox: Array String
 ```
 ### Agency/User model
