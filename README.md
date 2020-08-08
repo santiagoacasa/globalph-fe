@@ -147,6 +147,8 @@ GET | /inbox | Renders the inbox of DMs between photographer and client.
 
 ## WIRE FRAMES
 ![Home](private/wireframes/Home-mobile.png)
+![Home-Agency](private/wireframes/agencyhome-mobile.png)
 ![Signup](private/wireframes/Signup-mobile.png)
 ![Login](private/wireframes/Login-mobile.png)
 ![Profile](private/wireframes/profile-mobile.png)
+![Search Results](private/wireframes/searchresults-mobile.png)
