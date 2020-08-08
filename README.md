@@ -103,9 +103,10 @@ body:
     - password
     - profilePicUrl (optional)
 ```
-```
+|Method|URL|Description|
+|---|---|---|
 POST | /logout | Destroys the session and redirects to "/"
-```
+
 
 |Method|URL|Description|
 |---|---|---|
