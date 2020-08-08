@@ -42,6 +42,7 @@ Based on geolocation, the user will be able to select the range of distance for 
 - lastname: String, required
 - password: String, required
 - profilePicUrl: String
+- rating: Number
 - location: Array String
 - projects: Array ObjectId
 - portfolio: Array Strings
