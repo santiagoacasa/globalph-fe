@@ -90,6 +90,8 @@ body:
     - username
     - password
 ```
+|Method|URL|Description|
+|---|---|---|
 GET | /signup | Renders the signup form.
 POST | /signup | Redirects to /profile after a successful signup
 ```
