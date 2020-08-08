@@ -81,6 +81,7 @@ Based on geolocation, the user will be able to select the range of distance for 
 GET | / | It renders the homepage.
 
 ### Auth Routes
+
 |Method|URL|Description|
 |---|---|---|
 GET | /login | redirects to / if user logged in.
@@ -90,6 +91,7 @@ body:
     - username
     - password
 ```
+
 |Method|URL|Description|
 |---|---|---|
 GET | /signup | Renders the signup form.
@@ -107,7 +109,7 @@ body:
 |---|---|---|
 POST | /logout | Destroys the session and redirects to "/"
 
-
+### Profile routes
 |Method|URL|Description|
 |---|---|---|
 GET | /profile | renders the user profile. If the user is not logged in will redirect to the homepage. 
@@ -122,6 +124,8 @@ body:
     - email
     - password
 ```
+
+### Project routes
 |Method|URL|Description|
 |---|---|---|
 GET | /projects | renders a list of the artist's projects
@@ -140,11 +144,12 @@ body:
     - comments
 ```
 
+### Misc routes
 |Method|URL|Description|
 |---|---|---|
 GET | /portfolio | Renders the Photographer's portfolio
 GET | /inbox | Renders the inbox of DMs between photographer and client.
-POST | /create/appointment | saves appointment. Redirect /user-profile
+
 
 
 
