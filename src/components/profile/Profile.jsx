@@ -5,11 +5,11 @@ import Rating from './Rating';
 
 const Profile = (props) => {
 
-  useEffect(() => {
+ /* useEffect(() => {
     if (!props.loggedUser) {
       props.history.push('/login');
     }
-  });
+  });*/
 
   const buildPage = user => {
     return (

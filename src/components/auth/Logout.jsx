@@ -7,6 +7,7 @@ const Logout = props => {
 
     authService.logout()
     .then(response => {
+        localStorage.clear()
         props.callbackGetUser(null);
     })
     .catch(error => console.log(error))

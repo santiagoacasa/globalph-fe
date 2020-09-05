@@ -30,6 +30,7 @@ const Login = (props) => {
             email: '',
           },
         });
+        localStorage.setItem('loggedUser', JSON.stringify(response))
         props.callbackGetUser(response);
         props.history.push("/profile")
       })
