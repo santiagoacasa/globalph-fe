@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AuthService from '../../helpers/auth/auth-service'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FormGroup, Form } from 'react-bootstrap';
 
 const Signup = (props) => {
@@ -14,6 +14,13 @@ const Signup = (props) => {
   };
 
   const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+   if (props.loggedUser)
+   {
+    return <Redirect to={"/profile"}/>
+   } 
+  })
 
   const authService = new AuthService();
 
@@ -49,6 +56,7 @@ const Signup = (props) => {
   };
 
   return (
+    
     <div className="container">
       <Form onSubmit={(event) => handleSubmit(event)}>
         <FormGroup>

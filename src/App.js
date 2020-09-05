@@ -6,7 +6,8 @@ import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
-import Profile from './components/Profile';
+import Profile from './components/profile/Profile';
+import PhotographersList from './components/PhotographersList';
 
 
 function App() {
@@ -32,13 +33,14 @@ function App() {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar user={state.loggedInUser} key={state.loggedInUser}/>
       <Switch>
         <Route exact path="/" render={props => <Home {...props} callbackGetUser={getTheUser} callbackUpdatePhs={updatePhotographers} loggedUser={state.loggedInUser}/>} />
-        <Route path="/signup" render={props => <Signup {...props} callbackGetUser={getTheUser}/>} />
-        <Route path="/login" render={props => <Login {...props} callbackGetUser={getTheUser}/>} />
+        <Route path="/signup" render={props => <Signup {...props} callbackGetUser={getTheUser} loggedUser={state.loggedInUser}/>} />
+        <Route path="/login" render={props => <Login {...props} callbackGetUser={getTheUser} loggedUser={state.loggedInUser}/>} />
         <Route exact path="/logout" render={(props) => <Logout {...props} callbackGetUser={getTheUser} />}/>
         <Route path="/profile" render={(props) => <Profile {...props} loggedUser={state.loggedInUser}/>} />
+        <Route path="/photographers" render={(props) => <PhotographersList {...props} loggedUser={state.loggedInUser}/>} />
       </Switch>
     </div>
   );

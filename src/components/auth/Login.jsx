@@ -31,6 +31,7 @@ const Login = (props) => {
           },
         });
         props.callbackGetUser(response);
+        props.history.push("/profile")
       })
       .catch((error) => console.log(error));
   };

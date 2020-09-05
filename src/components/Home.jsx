@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Jumbotron, Form, InputGroup, Button } from 'react-bootstrap';
 import CrudService from '../helpers/crud-service';
 import { Redirect } from 'react-router-dom';
@@ -6,11 +6,21 @@ import { Redirect } from 'react-router-dom';
 const Home = props => {
   const initialState = {
     search: '',
+    results: null
   };
 
   const [state, setState] = useState(initialState);
 
   const crudService = new CrudService();
+
+  useEffect(() => {
+    if(state.results != null) {
+      props.history.push({
+        pathname: '/photographers',
+        state: state.results
+      })
+    }
+  })
 
   const handleInput = ({ target }) => {
     setState({
@@ -20,18 +30,16 @@ const Home = props => {
   };
 
   const handleSubmit = (event) => {
-    event.preventdefault();
-    // eslint-disable-next-line no-unused-expressions
-    <Redirect to={'/photographers'}/>
-    /*const searchParam = state;
+    event.preventDefault();
+   const searchParam = state.search;
     crudService.searchPhotographers(searchParam)
     .then((response) => {
       setState({
         search: '',
+        results: response
       });
-     props.history.push('/photographers')
     })
-    .catch(error => console.log(error))*/
+    .catch(error => console.log(error))
   };
 
   console.log("Usuario logueado: ", props.loggedUser)
