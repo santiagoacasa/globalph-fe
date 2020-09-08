@@ -5,12 +5,6 @@ import Rating from './Rating';
 
 const Profile = (props) => {
 
- /* useEffect(() => {
-    if (!props.loggedUser) {
-      props.history.push('/login');
-    }
-  });*/
-
   const buildPage = user => {
     return (
         <section>
@@ -21,6 +15,9 @@ const Profile = (props) => {
         <div className="profilePic">
           <img src={user.profilePicUrl} alt="Profile pic" />
         </div>
+        <Link to="/profile/edit">
+          <p>Edit profile</p>
+        </Link>
       </div>
       <div>
         <p>{user.rating}</p>

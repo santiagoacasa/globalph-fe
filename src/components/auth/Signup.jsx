@@ -52,13 +52,13 @@ const Signup = (props) => {
         props.callbackGetUser(response);
         props.history.push("/profile")
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.response.data.errorMessage));
   };
 
   return (
     
     <div className="container">
-      <Form onSubmit={(event) => handleSubmit(event)}>
+      <Form onSubmit={(event) => handleSubmit(event)} encType="multipart/form-data">
         <FormGroup>
           <Form.Label htmlFor="">First Name</Form.Label>
           <Form.Control
@@ -67,6 +67,7 @@ const Signup = (props) => {
             placeholder="Your First Name goes here"
             onChange={handleInput}
             value={state.form.firstName}
+            required
           />
         </FormGroup>
         <FormGroup>
@@ -77,6 +78,7 @@ const Signup = (props) => {
             placeholder="And your Last Name"
             onChange={handleInput}
             value={state.form.lastName}
+            required
           />
         </FormGroup>
         <FormGroup>
@@ -87,6 +89,7 @@ const Signup = (props) => {
             placeholder="Your email here"
             onChange={handleInput}
             value={state.form.email}
+            required
           />
         </FormGroup>
         <FormGroup>
@@ -95,9 +98,10 @@ const Signup = (props) => {
             type="password"
             name="password"
             id=""
-            placeholder="Password: min 7 characters"
+            placeholder="Password: min 8 characters"
             onChange={handleInput}
             value={state.form.password}
+            required
           />
         </FormGroup>
         <button type="submit" className="btn btn-primary">

@@ -9,11 +9,12 @@ import Navbar from './components/Navbar';
 import Profile from './components/profile/Profile';
 import PhotographersList from './components/PhotographersList';
 import NotFound  from './components/NotFound';
+import EditProfile from './components/profile/EditProfile';
 
 
 function App() {
   const initialState = {
-    loggedInUser: null,
+    loggedInUser: JSON.parse(localStorage.getItem('loggedUser')) || null,
     photographers: []
   }
 
@@ -45,6 +46,13 @@ function App() {
     })
   }
 
+  const updateLoggedUser = () => {
+    setState({
+      ...state,
+      loggedInUser: JSON.parse(localStorage.getItem('loggedUser'))
+    })
+  }
+
   return (
     <div>
       <Navbar user={state.loggedInUser} key={state.loggedInUser}/>
@@ -53,7 +61,8 @@ function App() {
         <Route path="/signup" render={props => <Signup {...props} callbackGetUser={getTheUser} loggedUser={state.loggedInUser}/>} />
         <Route path="/login" render={props => <Login {...props} callbackGetUser={getTheUser} loggedUser={state.loggedInUser}/>} />
         <Route exact path="/logout" render={(props) => <Logout {...props} callbackGetUser={getTheUser} />}/>
-        <Route path="/profile" render={(props) => <Profile {...props} loggedUser={state.loggedInUser}/>} />
+        <Route exact path="/profile" render={(props) => <Profile {...props} loggedUser={state.loggedInUser}/>} />
+        <Route exact path="/profile/edit" render={(props) => <EditProfile {...props} cbUpdateLoggedUser={updateLoggedUser} loggedUser={state.loggedInUser}/>} />
         <Route path="/photographers" render={(props) => <PhotographersList {...props} loggedUser={state.loggedInUser}/>} />
         <Route component={NotFound} />
       </Switch>

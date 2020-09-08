@@ -3,7 +3,7 @@ import axios from 'axios';
 class CrudService {
   constructor() {
     let service = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/search`,
+      baseURL: `${process.env.REACT_APP_API_URL}/crud`,
       withCredentials: true //envia el session Id que esta en la cookie al server
     });
     this.service = service;
@@ -22,7 +22,7 @@ class CrudService {
   }
 
   updateProfile = updatedProfile => {
-    return this.service.put('/updateProfile', updatedProfile)
+    return this.service.patch('/updateProfile', updatedProfile)
     .then(response => response.data)
   }
 }
