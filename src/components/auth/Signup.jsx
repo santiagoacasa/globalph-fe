@@ -10,6 +10,7 @@ const Signup = (props) => {
       lastName: '',
       password: '',
       email: '',
+      isPhotographer: false
     },
   };
 
@@ -57,7 +58,7 @@ const Signup = (props) => {
 
   return (
     
-    <div className="container">
+    <div className="container mt-4">
       <Form onSubmit={(event) => handleSubmit(event)} encType="multipart/form-data">
         <FormGroup>
           <Form.Label htmlFor="">First Name</Form.Label>
@@ -107,7 +108,7 @@ const Signup = (props) => {
         <button type="submit" className="btn btn-primary">
           Signup
         </button>
-        <p>
+        <p className="mt-1">
           Already have account?
           <Link to={'/login'}> Login</Link>
         </p>

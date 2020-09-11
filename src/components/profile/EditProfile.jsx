@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { FormGroup, Form, Button } from 'react-bootstrap';
 import CrudService from '../../helpers/crud-service';
+import UploadService from '../../helpers/upload-service';
+import ProfilePic from './ProfilePic';
 
 const EditProfile = (props) => {
   const initialState = {
     form: {
-      id: props.loggedUser._id,
       firstName: props.loggedUser.firstName,
       lastName: props.loggedUser.lastName,
       email: props.loggedUser.email,
-      profilePicUrl: props.loggedUser.profilePicUrl,
+      profilePicUrl: props.loggedUser.profilePicUrl || "",
       skills: '',
       description: props.loggedUser.description || "",
       country: props.loggedUser.country || null,
@@ -21,6 +21,7 @@ const EditProfile = (props) => {
   const [state, setState] = useState(initialState);
 
   const crudService = new CrudService();
+  const uploadService = new UploadService();
 
   const handleInput = ({ target }) => {
     setState({
@@ -57,14 +58,59 @@ const EditProfile = (props) => {
     .catch(err => console.log(err))
   };
 
+  const handleUploadPic = ({target}) => {
+      const uploadData = new FormData()
+      uploadData.append("profilePic", target.files[0])
+      uploadService.uploadProfilePic(uploadData)
+      .then(response => {
+        const picUrl = response.profilePicUrl
+        console.log(picUrl)
+        setState(state => ({
+          ...state,
+          form: {
+            ...state.form,
+            profilePicUrl: response.profilePicUrl,
+          }
+        }))
+      })
+      .catch(error => console.log(error))   
+  }
+
+  const handleDeleteSkill = (skill) => {
+    let skillsCopy = [...state.skills]
+    skillsCopy.splice(state.skills.indexOf(skill), 1)
+    setState({
+      form: {
+        ...state.form
+      },
+      skills: [...skillsCopy]
+    })
+  }
+
   const listSkills = () => {
-    return state.skills.map((skill) => <p key={skill}>{skill}</p>);
+    return state.skills.map((skill) => <p key={skill} style={{
+        backgroundColor:"darkgrey",
+        color: "white",
+        margin: "5px",
+        borderRadius: "5px",
+        padding: "3px"
+    }}> {skill}  <span onClick={() => {handleDeleteSkill(skill)}}> X </span> </p>);
   };
 
   return (
-    <Form onSubmit={(event) => handleSubmit(event)}>
+    <div>
+      <ProfilePic picUrl={state.form.profilePicUrl} />
+      <Form onSubmit={(event) => handleSubmit(event)} className="container mt-4">
       <FormGroup>
-        <Form.Label htmlFor="">First Name</Form.Label>
+        <Form.Label htmlFor="profilePic">Profile Pic</Form.Label>
+        <Form.Control 
+        type="file"
+        name="profilePic"
+        onChange={handleUploadPic} 
+        />
+      </FormGroup>
+      <FormGroup>
+        <Form.Label htmlFor="firstName">First Name</Form.Label>
         <Form.Control
           type="text"
           name="firstName"
@@ -75,7 +121,7 @@ const EditProfile = (props) => {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label htmlFor="">Last Name</Form.Label>
+        <Form.Label htmlFor="lastName">Last Name</Form.Label>
         <Form.Control
           type="text"
           name="lastName"
@@ -86,7 +132,7 @@ const EditProfile = (props) => {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label htmlFor="">Email</Form.Label>
+        <Form.Label htmlFor="email">Email</Form.Label>
         <Form.Control
           type="text"
           name="email"
@@ -96,7 +142,9 @@ const EditProfile = (props) => {
           required
         />
       </FormGroup>
-      <FormGroup>
+      <div className="border-top border-bottom border-dark pb-2 pt-2">
+      <Form.Label htmlFor="skills">Skills:</Form.Label>
+      <FormGroup className="d-flex">
         <Form.Control
           type="text"
           name="skills"
@@ -104,14 +152,20 @@ const EditProfile = (props) => {
           onChange={handleInput}
           value={state.form.skills}
         ></Form.Control>
-        <Button onClick={() => addSkill(state.form.skills)}>Add</Button>
-        <Button type="submit">Save</Button>
+        <Button onClick={() => addSkill(state.form.skills)} variant="dark">Add</Button>
       </FormGroup>
-      <div>
-        <p>Skills:</p>
+      <div style={{
+          display: "flex",
+          flexWrap: "wrap"
+      }}>
         {listSkills()}
       </div>
+      </div>
+      
+      <Button className="mt-4" type="submit" block>Save</Button>
     </Form>
+    </div>
+    
   );
 };
 

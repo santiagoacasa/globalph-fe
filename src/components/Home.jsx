@@ -57,7 +57,7 @@ const Home = props => {
           <Form.Control
             type="text"
             name="search"
-            placeholder="Search for a photographer near you"
+            placeholder="ex: landscape"
             onChange={handleInput}
             value={state.search}
           />

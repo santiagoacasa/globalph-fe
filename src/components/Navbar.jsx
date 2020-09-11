@@ -46,7 +46,7 @@ const Navbar = props => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <NavLink to="/" className="nav-link">
-        Home
+        <img style={{height: "48px"}} src={`${process.env.PUBLIC_URL}/assets/images/brand-icon.png`} alt=""/>
       </NavLink>
       <button
         className="navbar-toggler"
@@ -60,7 +60,7 @@ const Navbar = props => {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav mr-auto">{authLink}</ul>
+        <ul className="navbar-nav mr-auto text-right">{authLink}</ul>
       </div>
     </nav>
   );

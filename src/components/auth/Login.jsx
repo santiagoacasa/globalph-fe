@@ -47,7 +47,7 @@ const Login = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-4">
       <Form onSubmit={handleFormSubmit}>
         <FormGroup>
           <Form.Label>Email:</Form.Label>
@@ -67,9 +67,8 @@ const Login = (props) => {
             onChange={(event) => handleInput(event)}
           />
         </FormGroup>
-        <button className="btn btn-primary" type="submit">
-          {' '}
-          Login{' '}
+        <button className="btn btn-dark" type="submit">
+          Login
         </button>
       </Form>
       <p>

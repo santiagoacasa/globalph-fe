@@ -10,6 +10,7 @@ import Profile from './components/profile/Profile';
 import PhotographersList from './components/PhotographersList';
 import NotFound  from './components/NotFound';
 import EditProfile from './components/profile/EditProfile';
+import PortfolioEdit from './components/profile/PortfolioEdit';
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
         <Route exact path="/profile" render={(props) => <Profile {...props} loggedUser={state.loggedInUser}/>} />
         <Route exact path="/profile/edit" render={(props) => <EditProfile {...props} cbUpdateLoggedUser={updateLoggedUser} loggedUser={state.loggedInUser}/>} />
         <Route path="/photographers" render={(props) => <PhotographersList {...props} loggedUser={state.loggedInUser}/>} />
+        <Route exact path="/portfolio/edit" render={props => <PortfolioEdit {...props} loggedUser={state.loggedInUser}/>} />
         <Route component={NotFound} />
       </Switch>
     </div>
