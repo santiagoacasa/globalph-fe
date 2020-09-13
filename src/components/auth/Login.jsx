@@ -67,11 +67,11 @@ const Login = (props) => {
             onChange={(event) => handleInput(event)}
           />
         </FormGroup>
-        <button className="btn btn-dark" type="submit">
+        <button className="btn btn-dark btn-block" type="submit">
           Login
         </button>
       </Form>
-      <p>
+      <p className="mt-3 w-100 text-center">
         Don't have account?
         <Link to={'/signup'}> Signup</Link>
       </p>

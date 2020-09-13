@@ -18,6 +18,8 @@ const EditProfile = (props) => {
     },
     skills: props.loggedUser.skills || [],
   };
+
+  const [warning, setWarning] = useState({message: "You can add a maximum of 6 skills."})
   const [state, setState] = useState(initialState);
 
   const crudService = new CrudService();
@@ -34,13 +36,19 @@ const EditProfile = (props) => {
   };
 
   const addSkill = (skill) => {
-    setState({
-      form: {
-        ...state.form,
-        skills: '',
-      },
-      skills: [...state.skills, skill],
-    });
+    if(state.skills.length < 6) {
+      setState({
+        form: {
+          ...state.form,
+          skills: '',
+        },
+        skills: [...state.skills, skill],
+      });
+    } else {
+      setWarning({
+        message: "Remember, only a maximum of 6 skills is allowed."
+      })
+    }
   };
 
   const handleSubmit = (event) => {
@@ -64,12 +72,11 @@ const EditProfile = (props) => {
       uploadService.uploadProfilePic(uploadData)
       .then(response => {
         const picUrl = response.profilePicUrl
-        console.log(picUrl)
         setState(state => ({
           ...state,
           form: {
             ...state.form,
-            profilePicUrl: response.profilePicUrl,
+            profilePicUrl: picUrl,
           }
         }))
       })
@@ -154,6 +161,7 @@ const EditProfile = (props) => {
         ></Form.Control>
         <Button onClick={() => addSkill(state.form.skills)} variant="dark">Add</Button>
       </FormGroup>
+      <Form.Text><p style={{fontSize: "14px", fontStyle: "italic", color: warning.message === "You can add a maximum of 6 skills." ? "black" : "red" }}>{warning.message}</p></Form.Text>
       <div style={{
           display: "flex",
           flexWrap: "wrap"

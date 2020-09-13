@@ -14,12 +14,13 @@ const PhotographersList = props => {
 
 
     const buildPage = () => {
+        console.log(props.loggedUser)
         return searchResults.map(photographer => (
-            <PhotographerCard key={photographer._id} id={photographer._id} profilePic={photographer.profilePicUrl} firstName={photographer.firstName} lastName={photographer.lastName} />
+            <PhotographerCard key={photographer._id} loggedUser={props.loggedUser === null ? false : props.loggedUser } email={photographer.email} id={photographer._id} profilePic={photographer.profilePicUrl} firstName={photographer.firstName} lastName={photographer.lastName} />
         ))
     }
-
-    return (
+    
+    return (        
         <div>
             {buildPage()}
         </div>   

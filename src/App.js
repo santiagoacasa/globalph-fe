@@ -65,7 +65,7 @@ function App() {
         <Route exact path="/profile" render={(props) => <Profile {...props} loggedUser={state.loggedInUser}/>} />
         <Route exact path="/profile/edit" render={(props) => <EditProfile {...props} cbUpdateLoggedUser={updateLoggedUser} loggedUser={state.loggedInUser}/>} />
         <Route path="/photographers" render={(props) => <PhotographersList {...props} loggedUser={state.loggedInUser}/>} />
-        <Route exact path="/portfolio/edit" render={props => <PortfolioEdit {...props} loggedUser={state.loggedInUser}/>} />
+        <Route exact path="/portfolio/edit" render={props => <PortfolioEdit {...props} cbUpdateLoggedUser={updateLoggedUser} loggedUser={state.loggedInUser}/>} />
         <Route component={NotFound} />
       </Switch>
     </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navbar = props => {
+
   let authLink = (
     <>
     <li></li>
@@ -46,7 +47,7 @@ const Navbar = props => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <NavLink to="/" className="nav-link">
-        <img style={{height: "48px"}} src={`${process.env.PUBLIC_URL}/assets/images/brand-icon.png`} alt=""/>
+        <img style={{height: "32px"}} src={`${process.env.PUBLIC_URL}/assets/images/home.png`} alt=""/>
       </NavLink>
       <button
         className="navbar-toggler"

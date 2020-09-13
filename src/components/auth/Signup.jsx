@@ -9,9 +9,12 @@ const Signup = (props) => {
       firstName: '',
       lastName: '',
       password: '',
+      confirmPassword: '',
       email: '',
       isPhotographer: false
     },
+    errorMessage: '',
+    passwordMatch: false
   };
 
   const [state, setState] = useState(initialState);
@@ -19,20 +22,50 @@ const Signup = (props) => {
   useEffect(() => {
    if (props.loggedUser)
    {
-    return <Redirect to={"/profile"}/>
+    props.history.push("/profile")
    } 
   })
 
   const authService = new AuthService();
 
+  const checkPasswordMatch = (password, confirmPassword) => {
+    console.log("password", password)
+    console.log("Confirm password", confirmPassword)
+    console.log("Son iguales?", password == confirmPassword)
+    return password == confirmPassword;
+  }
+
   const handleInput = ({ target }) => {
+    if(target.name === "confirmPassword") { 
+      setState({
+        ...state,
+        form: {
+          ...state.form,
+          [target.name]: target.value
+        },
+        passwordMatch: checkPasswordMatch(state.form.password, state.form.confirmPassword)
+      })
+      console.log(checkPasswordMatch(state.form.password, state.form.confirmPassword))
+    } else {
+      setState({
+        ...state,
+        form: {
+          ...state.form,
+          [target.name]: target.value,
+        }
+      });
+    }
+  };
+
+  const handleCheckbox = ({target}) => {
     setState({
+      ...state,
       form: {
         ...state.form,
-        [target.name]: target.value,
-      },
-    });
-  };
+        isPhotographer: !state.form.isPhotographer
+      }
+    })
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,16 +77,19 @@ const Signup = (props) => {
           form: {
             firstName: '',
             lastName: '',
-            validated: false,
             password: '',
             email: '',
           },
         });
-        console.table(response);
         props.callbackGetUser(response);
         props.history.push("/profile")
       })
-      .catch((error) => console.log(error.response.data.errorMessage));
+      .catch((error) => {
+        setState({
+          ...state,
+          errorMessage: error.response.data.errorMessage
+        })
+        console.log(error.response.data.errorMessage)});
   };
 
   return (
@@ -70,6 +106,8 @@ const Signup = (props) => {
             value={state.form.firstName}
             required
           />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Please enter your first name</Form.Control.Feedback>
         </FormGroup>
         <FormGroup>
           <Form.Label htmlFor="">Last Name</Form.Label>
@@ -81,6 +119,8 @@ const Signup = (props) => {
             value={state.form.lastName}
             required
           />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Please enter your last name</Form.Control.Feedback>
         </FormGroup>
         <FormGroup>
           <Form.Label htmlFor="">Email</Form.Label>
@@ -92,24 +132,48 @@ const Signup = (props) => {
             value={state.form.email}
             required
           />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Please enter your email</Form.Control.Feedback>
         </FormGroup>
         <FormGroup>
           <Form.Label htmlFor="password">Password</Form.Label>
           <Form.Control
             type="password"
             name="password"
-            id=""
-            placeholder="Password: min 8 characters"
+            placeholder="One creative password here"
+            aria-describedby="passwordHelp"
             onChange={handleInput}
             value={state.form.password}
             required
           />
+          <Form.Control.Feedback type="invalid">Please enter your password</Form.Control.Feedback>
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Text id="passwordHelp">At least 8 characters long + one Uppercase letter.</Form.Text>
         </FormGroup>
-        <button type="submit" className="btn btn-primary">
+        <FormGroup>
+          <Form.Label htmlFor="confirm-password">Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm password"
+            onChange={handleInput}
+            value={state.form.confirmPassword}
+            aria-describedby="confirmPasswordHelp"
+            required
+          />
+          <Form.Control.Feedback type="invalid">Please enter your password</Form.Control.Feedback>
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Text id="confirmPasswordHelp"><p style={{fontSize: "12px"}}>{state.passwordMatch ? "Passwords match" : "Passwords don't match"}</p></Form.Text>
+        </FormGroup>
+        <FormGroup className="text-center">
+          <Form.Check type="checkbox" name="isPhotographer" label="I'm a photographer" onChange={handleCheckbox}/>
+        </FormGroup>
+        <p style={{color: "red"}}>{state.errorMessage}</p>
+        <button type="submit" className="btn btn-dark btn-block">
           Signup
         </button>
-        <p className="mt-1">
-          Already have account?
+        <p className="mt-3 w-100 text-center">
+          Already have an account?
           <Link to={'/login'}> Login</Link>
         </p>
       </Form>
