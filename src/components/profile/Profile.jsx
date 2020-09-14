@@ -1,33 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import AuthService from '../../helpers/auth/auth-service';
+import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Rating from './Rating';
 import ProfilePic from './ProfilePic';
-import FooterLinks from './FooterLinks';
+import FooterLinks from './footer/FooterLinks';
+import '../../styles/profile/profile.css'
 
 const Profile = (props) => {
 
   const buildPage = user => {
     return (
-        <section>
-      <div>
+    <section className="profile">
+      <div className="pictures-container">
         <div className="coverPhoto">
-          <img src="" alt="" />
         </div>
-        <ProfilePic picUrl={user.profilePicUrl} />
-        <Link to="/profile/edit">
-          <p>Edit profile</p>
-        </Link>
+          <ProfilePic picUrl={user.profilePicUrl} />
+          <Link style={{textDecoration: "none", fontSize: "14px"}} to="/profile/edit">
+            <p style={{width: "100%", textAlign: "center", color: "black"}}>Edit profile</p>
+          </Link>
       </div>
-      <div>
-        <p>{user.rating}</p>
+
+      <div className="w-100 text-center">
         <Rating>{user.rating}</Rating>
       </div>
-      <div>
-          <h3>{user.firstName} {user.lastName}</h3>
-          <h4>{user.description}</h4>
+
+      <div className="w-100 text-center">
+          <h2>{user.firstName} {user.lastName}</h2>
       </div>
-      <FooterLinks/>
+      <div className="w-100 text-center mt-5">
+        <h5>{user.description}</h5>
+      </div>
+      <footer className="profileFooter bg-white">
+      <FooterLinks user={user}/>
+      </footer>
     </section>
     )
   }

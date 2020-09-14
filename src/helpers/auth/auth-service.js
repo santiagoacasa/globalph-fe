@@ -22,8 +22,8 @@ class AuthService {
     })
   }
 
-  login = (email, password) => {
-    return this.service.post('/login', {email, password})
+  login = (email, password, isPhotographer) => {
+    return this.service.post('/login', {email, password,isPhotographer})
     .then(response => response.data)
   }
 

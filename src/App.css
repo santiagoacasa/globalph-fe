@@ -1,4 +1,13 @@
-@media (max-width: 600px) {
+html, body  {
+  max-height: 100%;
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 900px) {
+ html, body, div#app, div#root {
+    height: 100vh;
+  }
+
   #authFormContainer {
     display: flex;
     flex-direction: column;

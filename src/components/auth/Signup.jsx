@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AuthService from '../../helpers/auth/auth-service'
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormGroup, Form } from 'react-bootstrap';
 
 const Signup = (props) => {
@@ -31,8 +31,8 @@ const Signup = (props) => {
   const checkPasswordMatch = (password, confirmPassword) => {
     console.log("password", password)
     console.log("Confirm password", confirmPassword)
-    console.log("Son iguales?", password == confirmPassword)
-    return password == confirmPassword;
+    console.log("Son iguales?", password === confirmPassword)
+    return password === confirmPassword;
   }
 
   const handleInput = ({ target }) => {
@@ -149,21 +149,6 @@ const Signup = (props) => {
           <Form.Control.Feedback type="invalid">Please enter your password</Form.Control.Feedback>
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Text id="passwordHelp">At least 8 characters long + one Uppercase letter.</Form.Text>
-        </FormGroup>
-        <FormGroup>
-          <Form.Label htmlFor="confirm-password">Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm password"
-            onChange={handleInput}
-            value={state.form.confirmPassword}
-            aria-describedby="confirmPasswordHelp"
-            required
-          />
-          <Form.Control.Feedback type="invalid">Please enter your password</Form.Control.Feedback>
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          <Form.Text id="confirmPasswordHelp"><p style={{fontSize: "12px"}}>{state.passwordMatch ? "Passwords match" : "Passwords don't match"}</p></Form.Text>
         </FormGroup>
         <FormGroup className="text-center">
           <Form.Check type="checkbox" name="isPhotographer" label="I'm a photographer" onChange={handleCheckbox}/>

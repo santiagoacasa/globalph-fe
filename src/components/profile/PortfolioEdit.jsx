@@ -3,6 +3,8 @@ import UploadService from '../../helpers/upload-service';
 import CrudService from '../../helpers/crud-service';
 import Thumbnail from '../Thumbnail';
 import { Container, Row, Col } from 'react-bootstrap';
+import ExpPanel from './ExpPanel'
+import ExpContainer from './ExpContainer'
 
 const PortfolioEdit = (props) => {
   const [loadingState, setLoading] = useState({ loading: false });
@@ -35,7 +37,7 @@ const PortfolioEdit = (props) => {
     let updatedUser = {
         ...loggedUser
       };
-      updatedUser.portfolio = [...loggedUser.portfolio, ...portfolio]
+      updatedUser.portfolio = [...portfolio, ...loggedUser.portfolio]
       crudService.updateProfile(updatedUser)
       .then(response => {
           localStorage.setItem('loggedUser', JSON.stringify(response.updatedUser))
@@ -56,7 +58,8 @@ const PortfolioEdit = (props) => {
 
   return (
     <div>
-      <h3>Portfolio</h3>
+      <Container>
+      <h3 className="w-100 text-center mt-4">Portfolio</h3>
       <div>
         <div>
           <label htmlFor="portfolioPics">Upload new photos</label>
@@ -79,8 +82,12 @@ const PortfolioEdit = (props) => {
           <p>{uploadState.finishedUpload}</p>
         )}
       </div>
-      <Container>
-        {props.loggedUser.portfolio.length > 0 ? generateThumbnails() : ''}
+      
+        <ExpContainer>
+        <ExpPanel title="Display pictures" menuItem="displayPictures" heading="headingPictures">
+          {props.loggedUser.portfolio.length > 0 ? generateThumbnails() : ''}
+        </ExpPanel>
+        </ExpContainer>
       </Container>
     </div>
   );

@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 
 export const NotFound = () => {
     return (
-        <div>
+        <div className="d-flex flex-column mt-5">
             <img src={`${process.env.PUBLIC_URL}/assets/images/notfound.jpg`} alt="Not found"/>
-            <h3>Let's get you back <NavLink to="/">Home</NavLink></h3>
+            <p className="w-100 text-center">Let's get you back <NavLink to="/">Home</NavLink></p>
         </div>
     )
 }

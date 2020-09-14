@@ -4,13 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
-import Home from './components/Home';
+import Home from './components/Home/Home.jsx';
 import Navbar from './components/Navbar';
 import Profile from './components/profile/Profile';
 import PhotographersList from './components/PhotographersList';
 import NotFound  from './components/NotFound';
 import EditProfile from './components/profile/EditProfile';
 import PortfolioEdit from './components/profile/PortfolioEdit';
+import PhProfile from './components/profile/PhProfile';
 
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div id="app">
       <Navbar user={state.loggedInUser} key={state.loggedInUser}/>
       <Switch>
         <Route exact path="/" render={props => <Home {...props} callbackGetUser={getTheUser} callbackUpdatePhs={updatePhotographers} loggedUser={state.loggedInUser}/>} />
@@ -64,7 +65,8 @@ function App() {
         <Route exact path="/logout" render={(props) => <Logout {...props} callbackGetUser={getTheUser} />}/>
         <Route exact path="/profile" render={(props) => <Profile {...props} loggedUser={state.loggedInUser}/>} />
         <Route exact path="/profile/edit" render={(props) => <EditProfile {...props} cbUpdateLoggedUser={updateLoggedUser} loggedUser={state.loggedInUser}/>} />
-        <Route path="/photographers" render={(props) => <PhotographersList {...props} loggedUser={state.loggedInUser}/>} />
+        <Route exact path="/photographers" render={(props) => <PhotographersList {...props} loggedUser={state.loggedInUser}/>} />
+        <Route exact path="/photographers/selected" render={(props) => <PhProfile {...props} loggedUser={state.loggedInUser}/>} />
         <Route exact path="/portfolio/edit" render={props => <PortfolioEdit {...props} cbUpdateLoggedUser={updateLoggedUser} loggedUser={state.loggedInUser}/>} />
         <Route component={NotFound} />
       </Switch>
