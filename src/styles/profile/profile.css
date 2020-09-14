@@ -1,0 +1,73 @@
+*{ 
+
+font-family: 'Montserrat', sans-serif;
+
+}
+
+@media (max-width: 600px) {
+    .picturesContainer {
+        display:block;
+        position:relative;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    .coverPhoto {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        z-index: 1;
+        background-color: black;
+    }
+    
+    .profilePic {
+        display: block;
+        position: relative;
+        border-radius: 50%;
+        border: white 5px solid;
+        width: 187px;
+        height: 187px;
+        margin: -100px 0 0px 25%;
+        z-index:999;
+    }
+    
+    .footerlinks{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    
+    .footerLink{
+        width: 56px;
+        height: 56px;
+    }
+    
+    .footerLink img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .profile {
+        max-height: 100%;
+    }
+
+    .profileFooter {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        position:absolute;
+        left:0;
+        bottom: 30px;
+        right:0;
+    }
+
+    .cardsContainer {
+        margin-top: 30px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+  }
+

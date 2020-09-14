@@ -8,8 +8,9 @@ const Login = (props) => {
     form: {
       password: '',
       email: '',
+      isPhotographer: false
     },
-    message: null
+    errorMessage: ""
   };
 
   const [state, setState] = useState(initialState);
@@ -20,19 +21,29 @@ const Login = (props) => {
     event.preventDefault();
     const email = state.form.email;
     const password = state.form.password;
+    const isPhotographer = state.form.isPhotographer;
     authService
-      .login(email, password)
+      .login(email, password, isPhotographer)
       .then((response) => {
-        console.log("Esta fue la respuesta", response)
         setState({
+          ...state,
           form: {
             password: '',
             email: '',
+            isPhotographer: false
           },
         });
+        localStorage.setItem('loggedUser', JSON.stringify(response))
         props.callbackGetUser(response);
+        props.history.push("/profile")
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error.response.data.errorMessage)
+        setState({
+          ...state,
+          errorMessage: error.response.data.errorMessage
+        })
+      });
   };
 
   const handleInput = ({ target }) => {
@@ -44,8 +55,18 @@ const Login = (props) => {
     });
   };
 
+  const handleCheckbox = ({target}) => {
+    setState({
+      ...state,
+      form: {
+        ...state.form,
+        isPhotographer: !state.form.isPhotographer
+      }
+    })
+  }
+
   return (
-    <div className="container">
+    <div className="container mt-4">
       <Form onSubmit={handleFormSubmit}>
         <FormGroup>
           <Form.Label>Email:</Form.Label>
@@ -65,12 +86,15 @@ const Login = (props) => {
             onChange={(event) => handleInput(event)}
           />
         </FormGroup>
-        <button className="btn btn-primary" type="submit">
-          {' '}
-          Login{' '}
+        <FormGroup className="text-center">
+          <Form.Check type="checkbox" name="isPhotographer" label="I'm a photographer" onChange={handleCheckbox}/>
+        </FormGroup>
+        <p style={{color: "red"}}>{state.errorMessage}</p>
+        <button className="btn btn-dark btn-block" type="submit">
+          Login
         </button>
       </Form>
-      <p>
+      <p className="mt-3 w-100 text-center">
         Don't have account?
         <Link to={'/signup'}> Signup</Link>
       </p>

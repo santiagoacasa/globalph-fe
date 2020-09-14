@@ -16,11 +16,14 @@ class AuthService {
 
   loggedin = () => {
     return this.service.get('/loggedin')
-    .then(response => response.data)
+    .then(response => {
+      console.log("Hay un usuario logueado que es", response.data)
+      return response.data
+    })
   }
 
-  login = (email, password) => {
-    return this.service.post('/login', {email, password})
+  login = (email, password, isPhotographer) => {
+    return this.service.post('/login', {email, password,isPhotographer})
     .then(response => response.data)
   }
 
