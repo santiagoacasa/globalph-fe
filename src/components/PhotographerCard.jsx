@@ -23,7 +23,7 @@ const PhotographerCard = (props) => {
           </p>
           <p className="card-text">
             <strong>Phone: </strong>
-            <span>{ isPhotographer ? (
+            <span>{ props.loggedUser ? (
               props.phone
             ) : (
                 <span>
