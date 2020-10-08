@@ -55,7 +55,7 @@ const EditProfile = (props) => {
           ...state.form,
           skills: '',
         },
-        skills: [...state.skills, skill],
+        skills: [...state.skills, skill.toLowerCase()],
       });
       setWarning({
         message: 'You can add a maximum of 6 skills.',

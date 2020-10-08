@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import '../../styles/profile/profile.css'
 import ExpContainer from './ExpContainer';
 import ExpPanel from './ExpPanel'
+import {NavLink} from 'react-router-dom'
 
 const PhProfile = (props) => {
 
@@ -52,7 +53,10 @@ const PhProfile = (props) => {
       <div className="w-100 text-center">
           <h2>{user.firstName} {user.lastName}</h2>
           <p>email: {user.email}</p>
-          <p>phone: {user.phone}</p>
+          <p>phone: {props.loggedUser ? user.phone : (<span>
+                  { ' ' }
+                  Please <NavLink to="/login">login</NavLink> to view this info
+                </span>)}</p>
       </div>
       <div className="w-100 text-center  mt-5 border">
         <h6 className="font-italic">{user.description}</h6>

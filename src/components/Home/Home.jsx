@@ -37,7 +37,7 @@ const Home = props => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-   const searchParam = state.search;
+   const searchParam = state.search.toLowerCase();
     crudService.searchPhotographers(searchParam)
     .then((response) => {
       setState({

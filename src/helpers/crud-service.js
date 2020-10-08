@@ -9,12 +9,7 @@ class CrudService {
     this.service = service;
   }
   searchPhotographers = searchParam => {
-    console.log(searchParam)
-    return this.service.get(`/photographers`, {
-      params: {
-        search: searchParam
-      }
-    })
+    return this.service.post(`/photographers`, {searchParam: searchParam})
     .then(response => {
       console.log(response.data)
       return response.data
